@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html ng-app="validation">
+<head>
+	<title>DigiPharma Mobile Application | Registation</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+
+	<!-- Loading Flat UI -->
+	<link href="css/flat-ui.css" rel="stylesheet">
+
+	<link href="css/style.css" rel="stylesheet">
+
+	<link href="css/style.complete.css" rel="stylesheet">
+	<link href="css/cap.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+
+
+
+    <div id="page" class="page" style="position: relative;">
+
+
+		<div style="position: absolute;width: 100%;" id="loading">
+			<!--<img src="./images/download.jpg" style="width:100%"/>-->
+			<!--<div>-->
+				<img src="./images/chat-loader.gif" style="width: 100%;"/>
+			<!--</div>-->
+		</div>
+
+		<div ng-controller="ThanksController as thanks" ng-show="mode==1" id="thanks" style="position: absolute;">
+
+		</div>
+
+    <!-- /.item --><!-- Start Contact 1 -->
+		<div style="position: absolute; left: 50px;" id="regcontent">
+    <section class="content-block contact-1" ng-controller="RegistrationController as registration" ng-show="mode==0">
+		<div class="container text-center">
+			
+			<div class="col-sm-10 col-sm-offset-1">
+				
+				<div class="underlined-title">
+					<div class="editContent"><h1><a href="http://digipharma.me"><img src="http://dl.dropbox.com/s/hvlhe70en6bq52g/DigiPharma%20Me%20Logo.png" /></a><br />Register New Account</h1></div>
+		        	<hr>
+		        	<div class="editContent"><h2>Register new account to be able to use DigiPharma iOS, and Android applications</h2></div>
+	        	</div>
+				<div class="form-container" style="margin-top: 0 !important;">
+					<form class="forms" name="registrationForm" ng-submit="registrationForm.$valid && registration.submit()" enctype='multipart/form-data' novalidate>
+						<div class="error">{{output}}</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<input type="email" placeholder="Email" class="form-control" name="email" id="email" ng-model='registration.user.email' ng-pattern="emailPattern" required/>
+									<span ng-show="registrationForm.email.$dirty && registrationForm.email.$error.required" class="error">*email is required</span>
+									<span ng-show="registrationForm.email.$dirty && registrationForm.$error.pattern && (registrationForm.$error.pattern[0].$name=='email' || registrationForm.$error.pattern[1].$name=='email') " class="error">*email is invalid</span>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<input type="password" placeholder="Password" class="form-control" name="password" ng-model='registration.user.password' ng-minlength="8" required/>
+									<span ng-show="registrationForm.password.$dirty && registrationForm.password.$error.required" class="error">*password is required</span>
+									<span ng-show="registrationForm.password.$dirty && registrationForm.password.$error.minlength" class="error">*password is 8 characters at least</span>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<input type="password" placeholder="Confirm Password" class="form-control" name="confirmPassword" id="confirmPassword" ng-model='registration.user.confirmPassword' compare-to="registration.user.password" required/>
+									<span ng-show="registrationForm.confirmPassword.$dirty && registrationForm.confirmPassword.$error.compareTo" class="error">*password does not match</span>
+								</div>
+							</div>
+						</div><!-- /.row -->
+						
+							<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<input type="text" placeholder="Name" class="form-control" name="fullName" id="fullName" ng-model='registration.user.fullName' ng-minlength="5" required/>
+									<span ng-show="registrationForm.fullName.$dirty && registrationForm.fullName.$error.required" class="error">*the name is required</span><span ng-show="registrationForm.fullName.$dirty && registrationForm.fullName.$error.minlength" class="error">*name is 5 characters at least</span>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<input type="text" placeholder="Mobile" class="form-control" name="phone" id="phone" ng-model='registration.user.phone' ng-minlength="11" ng-maxlength="11" ng-pattern="mobilPattern" required/>
+									<span ng-show="registrationForm.phone.$dirty &&registrationForm.phone.$error.required" class="error">*mobile number is required</span><span ng-show="(registrationForm.phone.$dirty &&registrationForm.phone.$error.minlength) || (registrationForm.phone.$dirty && registrationForm.$error.pattern && (registrationForm.$error.pattern[0].$name=='phone' || registrationForm.$error.pattern[1].$name=='phone'))" class="error">*it is not a valid mobile number</span>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<input type="text" placeholder="Company" class="form-control" name="company" id="company" ng-model='registration.user.company' ng-minlength="5" />
+									<span ng-show="registrationForm.company.$dirty && registrationForm.company.$error.required" class="error">*the company name is required</span><span ng-show="registrationForm.company.$dirty && registrationForm.company.$error.minlength" class="error">*company name is 5 characters at least</span>
+								</div>
+							</div>
+						</div><!-- /.row -->
+						
+							<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<input type="text" placeholder="Job Title" class="form-control" name="title" id="title" ng-model='registration.user.title' ng-minlength="3">
+									<span ng-show="registrationForm.title.$dirty &&registrationForm.title.$error.required" class="error">*the title is required</span><span ng-show="registrationForm.title.$dirty &&registrationForm.title.$error.minlength" class="error">*title is 3 characters at least</span>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group" id="file_upload">
+									<input type="file" placeholder="Photo" class="form-control" ng-model="registration.user.image" name="image" id="image" base-sixty-four-input maxsize="1024" accept="image/png" ng-change="check_type()" />
+									<span ng-show="registrationForm.image.$dirty &&registrationForm.image.$error.required" class="error" id="img_req">*the image is required</span>
+								</div>
+								<div id="selected_img" ng-show="registration.user.image">
+									<img id="user_photo" ng-src="data:{{registration.user.image.filetype}};;base64,{{registration.user.image.base64}}" />
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div vc-recaptcha key="registration.publicKey"></div>
+							</div>
+						</div><!-- /.row -->
+						
+						
+						
+						<div class="form-group">
+							<div class="editContent"><p class="small muted">
+	Once you register, you will receive email confirmation message
+</p></div>
+						</div>
+						<div class="form-group">
+							<input type="submit" id="registerNew" value="Register Now" ng-disabled="registrationForm.$invalid" class="btn btn-warning"/>
+						</div>
+					</form>
+				</div><!-- /.form-container -->
+			
+			</div><!-- /.col-sm-10 -->
+				
+		</div><!-- /.container -->
+	</section><!-- /.content-block -->
+	<!--// END Contact 1 --></div></div><!-- /#page -->
+
+
+
+
+
+
+    <!-- Load JS here for greater good =============================-->
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="js/jquery.ui.touch-punch.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+    <script src="js/bootstrap-switch.js"></script>
+    <script src="js/flatui-checkbox.js"></script>
+    <script src="js/flatui-radio.js"></script>
+    <script src="js/jquery.tagsinput.js"></script>
+    <script src="js/jquery.placeholder.js"></script>
+	<script src="js/jquery.nivo.slider.pack.js"></script>
+    <script src="js/application.js"></script>
+	<script src="js/over.js"></script>
+	<script>
+		$('#captcha > div').toggleClass('form-control');
+		$(function(){
+		
+		if( $('#nivoSlider').size() > 0 ) {
+		
+	    	$('#nivoSlider').nivoSlider({
+	    		effect: 'random',
+				pauseTime: 5000
+	    	});
+		
+		}
+		
+	})
+	</script>
+	<script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.js"></script>
+	<script src="js/angular-recaptcha.min.js"></script>
+	<script src="js/html5shiv.js"></script>
+	<script src="js/respond.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.rawgit.com/adonespitogo/angular-base64-upload/master/src/angular-base64-upload.js"></script>
+
+	<script src="main.js" type="text/javascript"></script>
+
+
+</body></html>

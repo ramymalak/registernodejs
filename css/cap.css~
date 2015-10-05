@@ -1,0 +1,14 @@
+#recaptcha_logo{
+display:none;
+}
+#user_photo{
+width:40px;
+background-color:#000;
+}
+.error{
+color:red;
+font-size: 13px;
+}
+.ng-invalid.ng-touched{
+border-color: red;
+}
