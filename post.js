@@ -23,7 +23,7 @@ exports.getPostContent = function(req, res, uri) {
             //res.writeHead(200);
             //res.write("inside adduser");
             data = JSON.parse(data);
-            //console.log(req.connection.remoteAddress);
+            console.log(req.connection.remoteAddress);
             if (data.captcha!=null) {
 
 

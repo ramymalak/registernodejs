@@ -4,6 +4,7 @@ var http = require("http"),
     fs = require("fs"),
     get=require("./get"),
     post=require("./post");
+var port=Number(process.env.PORT || 3000);
 http.createServer(function(req, res) {
     res.writeHead(200, { 'Content-Type': 'text/html' });
     var method = req.method;
@@ -44,5 +45,5 @@ http.createServer(function(req, res) {
 
     }
 
-}).listen(3000);
+}).listen(port);
 console.log("Static file server running at\n  => http://localhost:" + 3000 + "/\nCTRL + C to shutdown");
